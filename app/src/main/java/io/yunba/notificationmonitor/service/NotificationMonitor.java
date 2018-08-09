@@ -66,7 +66,7 @@ public class NotificationMonitor extends NotificationListenerService {
         intent.putExtra(PAR_EVENT_EXTRA, sbn.getPackageName());
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
             Bundle extras = sbn.getNotification().extras;
-            intent.putExtra(PAR_NOTIFICATION_TITLE, extras.getString(Notification.EXTRA_TITLE));
+            intent.putExtra(PAR_NOTIFICATION_TITLE, "\nTitle: " + extras.getString(Notification.EXTRA_TITLE) + "\nText: " + extras.getString(Notification.EXTRA_TEXT) + "\nSubText: " + extras.getString(Notification.EXTRA_SUB_TEXT) + "\n");
         }
         sendBroadcast(intent);
     }
