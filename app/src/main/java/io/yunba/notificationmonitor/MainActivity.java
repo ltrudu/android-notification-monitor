@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case NotificationMonitor.EVENT_POST:
                     String pkgName = intent.getStringExtra(NotificationMonitor.PAR_EVENT_EXTRA);
                     String title = intent.getStringExtra(NotificationMonitor.PAR_NOTIFICATION_TITLE);
-                    String notice = "[notification post]" + pkgName + "[" + title + "]";
+                    String notice = title;
                     Message message = Message.obtain();
                     message.what = MSG_LIST_NOTIFICATIONS;
                     message.obj = notice;

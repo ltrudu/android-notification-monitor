@@ -64,17 +64,29 @@ public class NotificationMonitor extends NotificationListenerService {
         Intent intent = new Intent("io.yunba.notificationmonitor.NOTIFICATION_EVENT");
         intent.putExtra(PAR_EVENT, EVENT_POST);
         intent.putExtra(PAR_EVENT_EXTRA, sbn.getPackageName());
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-            Bundle extras = sbn.getNotification().extras;
-            intent.putExtra(PAR_NOTIFICATION_TITLE, "\nTitle: " + extras.getString(Notification.EXTRA_TITLE) + "\nText: " + extras.getString(Notification.EXTRA_TEXT) + "\nSubText: " + extras.getString(Notification.EXTRA_SUB_TEXT) + "\n");
+        Bundle extras = sbn.getNotification().extras;
+        String title = extras.getString(Notification.EXTRA_TITLE);
+        String extra_text = extras.getString(Notification.EXTRA_TEXT);
+        if(title.equalsIgnoreCase("Connectors")) {
+            intent.putExtra(PAR_NOTIFICATION_TITLE, "Posted :" + extra_text);
+            sendBroadcast(intent);
         }
-        sendBroadcast(intent);
     }
 
     @Override
     public void onNotificationRemoved(StatusBarNotification sbn) {
         updateCurrentNotifications();
         mRemovedNotification = sbn;
+        Intent intent = new Intent("io.yunba.notificationmonitor.NOTIFICATION_EVENT");
+        intent.putExtra(PAR_EVENT, EVENT_POST);
+        intent.putExtra(PAR_EVENT_EXTRA, sbn.getPackageName());
+        Bundle extras = sbn.getNotification().extras;
+        String title = extras.getString(Notification.EXTRA_TITLE);
+        String extra_text = extras.getString(Notification.EXTRA_TEXT);
+        if(title.equalsIgnoreCase("Connectors")) {
+            intent.putExtra(PAR_NOTIFICATION_TITLE, "Removed: " + extra_text);
+            sendBroadcast(intent);
+        }
     }
 
     private void updateCurrentNotifications() {
